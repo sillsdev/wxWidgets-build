@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Configure and make wx using the current git branch name
+
+SRC=../wxWidgets
+CONFIGURATION=(--enable-unicode --enable-debug)
+
+revpath()
+{
+	sed 's#[^/]*#..#g' <<<"$1"
+}
+
+git-branch-name()
+{
+	git describe --contains --all --always ${1:-HEAD}
+}
+
+BRANCH=$(cd $SRC; git-branch-name)
+SRC=$(revpath $BRANCH)/$SRC
+
+rm -rf $BRANCH
+mkdir -p $BRANCH
+cd $BRANCH
+
+$SRC/configure "${CONFIGURATION[@]}" &&
+make &&
+sudo make install DESTDIR=$(pwd)/destdir
