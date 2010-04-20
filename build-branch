@@ -24,6 +24,6 @@ rm -rf $BRANCH
 mkdir -p $BRANCH
 cd $BRANCH
 
-$SRC/configure "${CONFIGURATION[@]}" &&
-make &&
-sudo make install DESTDIR=$(pwd)/destdir
+$SRC/configure "${CONFIGURATION[@]}"
+make
+make install DESTDIR=$(pwd)/destdir
