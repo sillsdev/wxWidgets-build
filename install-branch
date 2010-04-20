@@ -1,0 +1,15 @@
+#!/bin/bash
+
+git-branch-name()
+{
+	git describe --contains --all --always ${1:-HEAD}
+}
+
+BRANCH=$1
+
+if [ -z "$BRANCH" ]; then
+	BRANCH=$(cd ../wxWidgets; git-branch-name)
+fi
+
+cd "$BRANCH/destdir"
+find * ! -type d -print | sudo cpio -pvdmu -R root: /
