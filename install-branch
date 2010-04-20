@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 git-branch-name()
 {
 	git describe --contains --all --always ${1:-HEAD}

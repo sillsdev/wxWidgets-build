@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Configure and make wx using the current git branch name
 
 SRC=../wxWidgets
