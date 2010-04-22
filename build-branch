@@ -1,8 +1,10 @@
 #!/bin/bash
 
-set -e
+#	Configure and make wx using the current git branch name
+#
+#	Neil Mayhew - 2010-04-20
 
-# Configure and make wx using the current git branch name
+set -e
 
 SRC=../wxWidgets
 CONFIGURATION=(--enable-unicode --enable-debug)

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#	Install a built wx
+#
+#	Neil Mayhew - 2010-04-20
+
 set -e
 
 git-branch-name()
