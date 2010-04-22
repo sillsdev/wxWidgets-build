@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#	Configure, make and install wx to /usr/local
+#
+#	Neil Mayhew - 2010-04-22
+
+set -e
+
+PREFIX=/usr/local
+CONFIGURATION=(
+	--enable-unicode --enable-debug --prefix="$PREFIX"
+)
+
+revpath()
+{
+	sed 's#[^/]*#..#g' <<<"$1"
+}
+
+wx-version()
+{
+	sed -n '/wxVERSION_STRING/s/.*"wxWidgets \(.*\)".*/\1/p' "$1/include/wx/version.h"
+}
+
+SRC=${1:-.}
+BUILD=build-ud-$(wx-version "$SRC")
+case "$SRC" in
+([^/]*) SRC=$(revpath $BUILD)/$SRC;;
+esac
+SRC=${SRC%/.}
+
+rm -rf $BUILD
+mkdir -p $BUILD
+cd $BUILD
+
+${SRC}/configure "${CONFIGURATION[@]}"
+make
+
+echo "sudo make install"
+sudo make install
