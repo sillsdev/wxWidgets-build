@@ -6,6 +6,8 @@
 
 set -e
 
+trap '[ $? -eq 0 ] || echo "FAILED!"' 0
+
 PREFIX=/usr/local
 CONFIGURATION=(
 	--enable-unicode --enable-debug --prefix="$PREFIX"
@@ -32,8 +34,21 @@ rm -rf $BUILD
 mkdir -p $BUILD
 cd $BUILD
 
-${SRC}/configure "${CONFIGURATION[@]}"
-make
+echo
+echo "Configuring in $BUILD"
+echo "Output redirected to $BUILD/configure.out"
 
-echo "sudo make install"
-sudo make install
+${SRC}/configure "${CONFIGURATION[@]}" &>configure.out
+
+echo
+echo "Making in $BUILD"
+echo "Output redirected to $BUILD/make.out"
+
+make &>make.out
+
+echo
+echo "Installing from $BUILD"
+echo "Output redirected to $BUILD/install.out"
+
+sudo -v -p "Enter password for sudo make install: "
+sudo make install &>install.out
