@@ -11,10 +11,11 @@ git-branch-name()
 	git describe --contains --all --always ${1:-HEAD}
 }
 
+SRC=../wxWidgets
 BRANCH=$1
 
 if [ -z "$BRANCH" ]; then
-	BRANCH=$(cd ../wxWidgets; git-branch-name)
+	BRANCH=$(cd $SRC; git-branch-name)
 fi
 
 cd "$BRANCH/destdir"
