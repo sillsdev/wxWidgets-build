@@ -27,5 +27,5 @@ mkdir -p $BRANCH
 cd $BRANCH
 
 $SRC/configure "${CONFIGURATION[@]}"
-make
+make "${@:2}"
 make install DESTDIR=$(pwd)/destdir

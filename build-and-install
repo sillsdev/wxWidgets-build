@@ -44,7 +44,7 @@ echo
 echo "Making in $BUILD"
 echo "Output redirected to $BUILD/make.out"
 
-make &>make.out
+make "${@:2}" &>make.out
 
 echo
 echo "Installing from $BUILD"
