@@ -27,12 +27,9 @@ case "$SRC" in
 esac
 SRC=${SRC%/.}
 
-ARCH="-arch i386"
 CONFIGURATION=(
 	--enable-unicode --enable-debug --prefix="$PREFIX"
-	CFLAGS="$ARCH" CXXFLAGS="$ARCH"
-	OBJCFLAGS="$ARCH" OBJCXXFLAGS="$ARCH"
-	LDFLAGS="$ARCH"
+	--with-osx_cocoa
 )
 
 rm -rf $BUILD
