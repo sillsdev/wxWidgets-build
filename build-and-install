@@ -19,8 +19,9 @@ wx-version()
 }
 
 SRC=${1:-.}
-BUILD=build-ud-$(wx-version "$SRC")
-PREFIX=/usr/local
+VERSION=$(wx-version "$SRC")
+BUILD=build-ud-$VERSION
+PREFIX=/opt/wx/$VERSION
 
 case "$SRC" in
 ([^/]*) SRC=$(revpath $BUILD)/$SRC;;
