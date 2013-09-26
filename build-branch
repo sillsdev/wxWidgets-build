@@ -6,7 +6,6 @@
 
 set -e
 
-SRC=../wxWidgets
 ARCH="-arch i386"
 CONFIGURATION=(
 	--enable-unicode --enable-debug
@@ -25,6 +24,7 @@ git-branch-name()
 	git describe --contains --all --always ${1:-HEAD}
 }
 
+SRC=${1:-../wxWidgets}
 BRANCH=$(cd $SRC; git-branch-name)
 SRC=$(revpath $BRANCH)/$SRC
 
