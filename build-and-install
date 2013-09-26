@@ -8,11 +8,6 @@ set -e
 
 trap '[ $? -eq 0 ] || echo "FAILED!"' 0
 
-PREFIX=/usr/local
-CONFIGURATION=(
-	--enable-unicode --enable-debug --prefix="$PREFIX"
-)
-
 revpath()
 {
 	sed 's#[^/]*#..#g' <<<"$1"
@@ -25,10 +20,16 @@ wx-version()
 
 SRC=${1:-.}
 BUILD=build-ud-$(wx-version "$SRC")
+PREFIX=/usr/local
+
 case "$SRC" in
 ([^/]*) SRC=$(revpath $BUILD)/$SRC;;
 esac
 SRC=${SRC%/.}
+
+CONFIGURATION=(
+	--enable-unicode --enable-debug --prefix="$PREFIX"
+)
 
 rm -rf $BUILD
 mkdir -p $BUILD
