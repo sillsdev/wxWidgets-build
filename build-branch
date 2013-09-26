@@ -7,8 +7,12 @@
 set -e
 
 SRC=../wxWidgets
+ARCH="-arch i386"
 CONFIGURATION=(
 	--enable-unicode --enable-debug
+	CFLAGS="$ARCH" CXXFLAGS="$ARCH"
+	OBJCFLAGS="$ARCH" OBJCXXFLAGS="$ARCH"
+	LDFLAGS="$ARCH"
 )
 
 revpath()
