@@ -6,9 +6,7 @@
 
 set -e
 
-CONFIGURATION=(
-	--enable-unicode --enable-debug
-)
+trap '[ $? -eq 0 ] || echo "FAILED!"' 0
 
 revpath()
 {
@@ -20,13 +18,27 @@ git-branch-name()
 	git describe --contains --all --always ${1:-HEAD}
 }
 
-SRC=${1:-../wxWidgets}
-BRANCH=$(cd $SRC; git-branch-name)
-SRC=$(revpath $BRANCH)/$SRC
+wx-version()
+{
+	sed -n '/wxVERSION_STRING/s/.*"wxWidgets \(.*\)".*/\1/p' "$1/include/wx/version.h"
+}
 
-rm -rf $BRANCH
-mkdir -p $BRANCH
-cd $BRANCH
+SRC=${1:-../wxWidgets}
+VERSION=$(wx-version "$SRC")
+BUILD=$(cd $SRC; git-branch-name)
+PREFIX=/opt/wx/$VERSION
+
+case "$SRC" in
+([^/]*) SRC=$(revpath $BUILD)/$SRC;;
+esac
+SRC=${SRC%/.}
+
+CONFIGURATION=(
+	--enable-unicode --enable-debug --prefix="$PREFIX"
+)
+rm -rf $BUILD
+mkdir -p $BUILD
+cd $BUILD
 
 $SRC/configure "${CONFIGURATION[@]}"
 make "${@:2}"
