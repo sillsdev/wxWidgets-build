@@ -30,7 +30,6 @@ SRC=${SRC%/.}
 
 CONFIGURATION=(
 	--enable-unicode --enable-debug --prefix="$PREFIX"
-	--with-osx_cocoa
 )
 
 rm -rf $BUILD

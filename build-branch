@@ -8,7 +8,6 @@ set -e
 
 CONFIGURATION=(
 	--enable-unicode --enable-debug
-	--with-osx_cocoa
 )
 
 revpath()
