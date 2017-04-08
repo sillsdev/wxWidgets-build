@@ -34,7 +34,7 @@ esac
 SRC=${SRC%/.}
 
 CONFIGURATION=(
-	--enable-unicode --enable-debug --prefix="$PREFIX"
+	--enable-unicode --enable-debug --prefix="$PREFIX" --with-gtk=3
 )
 rm -rf $BUILD
 mkdir -p $BUILD
